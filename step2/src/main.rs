@@ -51,12 +51,13 @@ fn shell_read_line() -> Option<String> {
 }
 
 fn shell_parse_line(line: &str) -> Option<Action> {
-    // lineを空白で分割
-    let commands = line.split(' ').map(|s| s.to_string()).collect::<Vec<_>>();
-    if commands.is_empty() {
-        None
-    } else {
-        Some(Action::SimpleCommand(commands))
+    match line.is_empty() {
+        true => None,
+        false => {
+            // lineを空白で分割
+            let commands = line.split(' ').map(|s| s.to_string()).collect::<Vec<_>>();
+            Some(Action::SimpleCommand(commands))
+        }
     }
 }
 
