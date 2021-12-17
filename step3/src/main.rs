@@ -9,7 +9,6 @@ use nix::{
 use std::{
     ffi::CString,
     io::{stdin, stdout, Write},
-    process::exit,
 };
 
 #[derive(Debug)]
@@ -114,15 +113,7 @@ fn shell_exec_simple_command(command: Vec<String>) {
                 .map(|c| CString::new(c).unwrap())
                 .collect::<Vec<_>>();
 
-            match execvp(&args[0], &args) {
-                Ok(_) => (),
-                Err(e) if e == Errno::ENOENT => (),
-                Err(e) => {
-                    eprintln!("Error: {}", e);
-                    exit(1);
-                }
-            };
-            exit(0);
+            execvp(&args[0], &args).unwrap();
         }
         Err(e) => {
             eprintln!("fork error: {}", e);
