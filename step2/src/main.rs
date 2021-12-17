@@ -2,8 +2,10 @@ use nix::{
     sys::wait::waitpid,
     unistd::{execvp, fork, ForkResult},
 };
-use std::ffi::CString;
-use std::io::{stdin, stdout, Write};
+use std::{
+    ffi::CString,
+    io::{stdin, stdout, Write},
+};
 
 #[derive(Debug)]
 enum Action {
